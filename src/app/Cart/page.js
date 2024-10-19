@@ -1,31 +1,20 @@
 "use client";
 import React from "react";
-import "../styles/Card.css";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AddtoCart } from "./Redux/createSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RemovetoCart } from "../Redux/createSlice";
 
-const page = () => {
-  const [data, setdata] = useState([]);
+const Cart = () => {
+  const maindd = useSelector((dd) => dd.cart);
   const dispatch = useDispatch();
 
-  const Add = (elem) => {
-    dispatch(AddtoCart(elem));
+  const Remove = (elem) => {
+    dispatch(RemovetoCart(elem));
   };
-
-  useEffect(() => {
-    const maindata = async () => {
-      const data = await fetch("https://fakestoreapi.com/products");
-      const data2 = await data.json();
-      setdata(data2);
-    };
-    maindata();
-  }, []);
 
   return (
     <div>
       <div className="card-container">
-        {data.map((elem, index) => (
+        {maindd.map((elem, index) => (
           <div className="card" key={index}>
             <img src={elem.image} alt={elem.title} className="card-img" />
             <div className="card-content">
@@ -34,11 +23,11 @@ const page = () => {
               <h5 className="card-description">{elem.description}</h5>
               <button
                 onClick={() => {
-                  Add(elem);
+                  Remove(elem.id);
                 }}
                 className="btn"
               >
-                Add to cart
+                Remove To Cart
               </button>
             </div>
           </div>
@@ -48,4 +37,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Cart;
