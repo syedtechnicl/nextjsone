@@ -14,7 +14,7 @@ const Navbar = () => {
             Home
           </Link>
           <Link className="navLink" href="/Cart">
-            Cart
+            <span style={{ color: "red" }}> Carts</span>
           </Link>
           <span className="cartCount">Cart items: {maindd.length}</span>
         </div>
